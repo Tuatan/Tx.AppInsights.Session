@@ -77,10 +77,10 @@
 
         private static HttpRequestData ToHttpSession(HttpListenerContext context)
         {
+            var result = new HttpRequestData();
+
             try
             {
-                var result = new HttpRequestData();
-
                 var request = context.Request;
 
                 result.RequestHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -90,16 +90,18 @@
                     result.RequestHeaders[item] = request.Headers[item];
                 }
 
-                return result;
+                result.RequestContent = Reader.GetContent(context.Request.InputStream, result.RequestHeaders);
             }
             catch (Exception e)
             {
-                return new HttpRequestData();
+                // Add EventSource based tracing
             }
             finally 
             {
                 context.Response.Close();
             }
+
+            return result;
         }
     }
 }
