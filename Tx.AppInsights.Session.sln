@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.AppInsights.Session", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.ApplicationInsights.Session.ConsoleApp", "Tx.ApplicationInsights.Session.ConsoleApp\Tx.ApplicationInsights.Session.ConsoleApp.csproj", "{D6CE1321-B608-4886-AD32-D5EA0009AA6B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{6112AAAB-1487-4B9E-8DD4-FD0907735A70}"
+	ProjectSection(SolutionItems) = preProject
+		Samples\AppInsightshttplistener.linq = Samples\AppInsightshttplistener.linq
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
