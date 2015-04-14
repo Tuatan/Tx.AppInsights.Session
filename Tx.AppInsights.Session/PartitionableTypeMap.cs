@@ -13,6 +13,7 @@ namespace Tx.ApplicationInsights.Session
     {
         private readonly Dictionary<Type, Func<PayloadData, object>> map = new Dictionary<Type, Func<PayloadData, object>>();
         private readonly Dictionary<Type, string> map2 = new Dictionary<Type, string>();
+        private readonly HashSet<string> knownTypes;
 
         public PartitionableTypeMap()
         {
@@ -20,11 +21,15 @@ namespace Tx.ApplicationInsights.Session
             this.map2.Add(typeof(Envelope<SessionStateData>), "SessionState");
             this.map2.Add(typeof(Envelope<PerformanceCounterData>), "PerformanceCounter");
             this.map2.Add(typeof(Envelope<ExceptionEventData>), "Exception");
+            this.map2.Add(typeof(string), "Unknown");
 
             this.map.Add(typeof(Envelope<RequestData>), this.Parse<RequestData>);
             this.map.Add(typeof(Envelope<SessionStateData>), this.Parse<SessionStateData>);
             this.map.Add(typeof(Envelope<PerformanceCounterData>), this.Parse<PerformanceCounterData>);
             this.map.Add(typeof(Envelope<ExceptionEventData>), this.Parse<ExceptionEventData>);
+            this.map.Add(typeof(string), e => e.PayloadJson);
+
+            this.knownTypes = new HashSet<string>(this.map2.Select(i => i.Value).ToArray(), this.Comparer);
         }
 
         public Envelope<T> ParseEnvelope<T>(PayloadData envelope, JObject jsonObject)
@@ -123,7 +128,12 @@ namespace Tx.ApplicationInsights.Session
 
         public string GetInputKey(PayloadData evt)
         {
-            return evt.Type;
+            if (this.knownTypes.Contains(evt.Type))
+            {
+                return evt.Type;                
+            }
+
+            return "Unknown";
         }
 
         public IEqualityComparer<string> Comparer
