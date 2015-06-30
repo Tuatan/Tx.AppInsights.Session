@@ -1,4 +1,4 @@
-# Tx.AppInsights.Session
+# Tx.ApplicationInsights.Session
 
 When working with [ApplicationInsights](http://azure.microsoft.com/en-us/services/application-insights/) you sometimes need to see whether data is sent out. For that purposes you can use [Fiddler](http://www.telerik.com/fiddler).
 
