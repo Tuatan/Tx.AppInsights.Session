@@ -1,4 +1,5 @@
 ![Build](https://travis-ci.org/Tuatan/Tx.AppInsights.Session.svg?branch=master)
+[![Nuget](https://img.shields.io/nuget/vpre/tx.core.svg)](http://nuget.org/packages/tx.core)
 
 # Tx.ApplicationInsights.Session
 
